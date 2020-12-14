@@ -1,0 +1,182 @@
+<%- include("partials/header"); -%>
+
+<div class="d-flex flex-column" id="content-wrapper">
+  <div id="content">
+    <nav class="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar static-top">
+      <h3 class="text-dark mb-0">Items Dashboard</h3>
+    </nav>
+
+
+
+
+    <div class="container-lg shadow p-3 mb-5 bg-white rounded">
+      <div class="table-responsive">
+        <div class="table-wrapper">
+          <div class="table-title">
+            <div class="row">
+              <div class="col-sm-8">
+                <h2>Items Details</h2>
+              </div>
+              <div class="col-sm-4">
+                <button type="button" class="btn btn-info add-new"><i class="fa fa-plus"></i>
+                  Add
+                  New</button>
+              </div>
+            </div>
+          </div>
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>Item ID</th>
+                <th>Item Name</th>
+                <!-- <th>Item Description</th> -->
+                <!-- <th>Item CategoryID</th> -->
+                <th>Item Category</th>
+                <th>Price</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+
+              <% item.forEach(element => { %>
+
+              <tr>
+                <td> <%= element.itemId %> </td>
+                <td><%= element.itemName %></td>
+                <!-- <td><%= element.itemDescription %></td> -->
+                <td><%= element.category.categoryName %></td>
+
+                <td><%= element.itemPrice %></td>
+                <!-- <td><%= element.category.categoryId %></td> -->
+                <td>
+                  <a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
+                  <a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
+                  <a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
+                </td>
+
+                <% }); %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    </table>
+
+
+
+
+
+  </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/js/bootstrap.bundle.min.js">
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.js"></script>
+<script src="assets/js/theme.js"></script>
+
+<script>
+  $(document).ready(function () {
+
+
+    $('[data-toggle="tooltip"]').tooltip();
+    var actions = $("table td:last-child").html();
+    // Append table with add row form on add new button click
+    $(".add-new").click(function () {
+      $(this).attr("disabled", "disabled");
+      var index = $("table tbody tr:last-child").index();
+      var row = '<tr>' +
+        '<td><input type="text" class="form-control" name="itemId" id="name"></td>' +
+        '<td><input type="text" class="form-control" name="itemName" id="itemName"></td>' +
+        '<td><input type="text" class="form-control" name="itemDescription" id="itemDescription"></td>' +
+        '<td><input type="text" class="form-control" name="itemPrice" id="itemPrice"></td>' +
+        '<td>' + actions + '</td>' +
+        '</tr>';
+      $("table").append(row);
+      $("table tbody tr").eq(index + 1).find(".add, .edit").toggle();
+      $('[data-toggle="tooltip"]').tooltip();
+    });
+
+
+    // Add row on add button click
+    $(document).on("click", ".add", function () {
+      var empty = false;
+      var input = $(this).parents("tr").find('input[type="text"]');
+      input.each(function () {
+        if (!$(this).val()) {
+          $(this).addClass("error");
+          empty = true;
+        } else {
+          $(this).removeClass("error");
+        }
+
+        console.log($(this.data));
+
+      });
+
+      $(this).parents("tr").find(".error").first().focus();
+      if (!empty) {
+        input.each(function () {
+          $(this).parent("td").html($(this).val());
+        });
+        $(this).parents("tr").find(".add, .edit").toggle();
+        $(".add-new").removeAttr("disabled");
+      }
+    });
+
+    // Edit row on edit button click
+    $(document).on("click", ".edit", function () {
+
+      $(this).closest('tr').find('td').each(function () {
+        var textval = $(this).text(); // this will be the text of each <td>
+        console.log(textval);
+      });
+
+      $(this).parents("tr").find("td:not(:last-child)").each(function () {
+        $(this).html('<input type="text" class="form-control" value="' + $(this)
+          .text() + '">');
+      });
+
+      $(this).parents("tr").find(".add, .edit").toggle();
+      $(".add-new").attr("disabled", "disabled");
+
+    });
+    // Delete row on delete button click
+
+    $(document).on("click", ".delete", function () {
+
+      $(this).closest('tr').find('td').not(':last').each(function () {
+        var textval = $(this).text(); // this will be the text of each <td>
+        console.log(textval);
+      });
+
+      // console.log($(this).parents("td"));
+      $(this).parents("tr").remove();
+      $(".add-new").removeAttr("disabled");
+
+    });
+
+  });
+</script>
+
+
+</body>
+
+</html>
