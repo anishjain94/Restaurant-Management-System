@@ -1,0 +1,146 @@
+<%- include("partials/header"); -%>
+
+<div class="d-flex flex-column" id="content-wrapper">
+    <div id="content">
+        <nav class="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar static-top">
+            <h3 class="text-dark mb-0">Dashboard</h3>
+        </nav>
+
+        <div class="container-lg shadow p-3 mb-3 bg-white rounded">
+
+            <form action="/additems" method="POST">
+
+                <div class="form-group">
+
+                    <div class="m-4">
+                        <label for="exampleInputEmail1">Item Name</label>
+                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                            placeholder="Enter Item ID" name="itemname">
+                    </div>
+
+                    <div class="m-4">
+                        <label for="exampleInputEmail1">Item Description</label>
+                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                            placeholder="Enter Item ID" name="itemdescription">
+                    </div>
+
+
+                    <div class="m-4">
+                        <label for="exampleInputEmail1">Item Price</label>
+                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                            placeholder="Enter Item ID" name="itemprice">
+                    </div>
+
+
+                    <div class="m-4">
+                        <label for="exampleInputEmail1">Category Name</label>
+
+                        <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" name="categoryId">
+
+                            <% category.forEach(item => {  %>
+                            <option value=<%= item.categoryId %> selected> <%= item.categoryName %></option>
+                            <%}) %>
+                        </select>
+                    </div>
+
+
+                    <button type="submit" class="btn btn-primary ml-4">Submit</button>
+
+            </form>
+        </div>
+
+
+
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+<!-- 
+<footer class="bg-white sticky-footer">
+<div class="container my-auto">
+    <div class="text-center my-auto copyright"><span>Copyright © Brand 2020</span></div>
+</div>
+</footer> -->
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/js/bootstrap.bundle.min.js">
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.js"></script>
+<script src="assets/js/theme.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+        var actions = $("table td:last-child").html();
+        // Append table with add row form on add new button click
+        $(".add-new").click(function () {
+            $(this).attr("disabled", "disabled");
+            var index = $("table tbody tr:last-child").index();
+            var row = '<tr>' +
+                '<td><input type="text" class="form-control" name="name" id="name"></td>' +
+                '<td><input type="text" class="form-control" name="department" id="department"></td>' +
+                '<td><input type="text" class="form-control" name="phone" id="phone"></td>' +
+                '<td>' + actions + '</td>' +
+                '</tr>';
+            $("table").append(row);
+            $("table tbody tr").eq(index + 1).find(".add, .edit").toggle();
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+        // Add row on add button click
+        $(document).on("click", ".add", function () {
+            var empty = false;
+            var input = $(this).parents("tr").find('input[type="text"]');
+            input.each(function () {
+                if (!$(this).val()) {
+                    $(this).addClass("error");
+                    empty = true;
+                } else {
+                    $(this).removeClass("error");
+                }
+            });
+
+            $(this).parents("tr").find(".error").first().focus();
+            if (!empty) {
+                input.each(function () {
+                    $(this).parent("td").html($(this).val());
+                });
+                $(this).parents("tr").find(".add, .edit").toggle();
+                $(".add-new").removeAttr("disabled");
+            }
+        });
+        // Edit row on edit button click
+        $(document).on("click", ".edit", function () {
+            $(this).parents("tr").find("td:not(:last-child)").each(function () {
+                $(this).html('<input type="text" class="form-control" value="' + $(this)
+                    .text() + '">');
+            });
+            $(this).parents("tr").find(".add, .edit").toggle();
+            $(".add-new").attr("disabled", "disabled");
+        });
+        // Delete row on delete button click
+        $(document).on("click", ".delete", function () {
+            $(this).parents("tr").remove();
+            $(".add-new").removeAttr("disabled");
+        });
+    });
+</script>
+
+
+</body>
+
+</html>

@@ -8,41 +8,43 @@
 
 
         <div class="container-lg shadow p-3 mb-3 bg-white rounded">
-            <form action="/additems" method="POST">
+            <form action="/addcategory" method="POST">
 
                 <div class="form-group">
 
-                    <div class="m-4">
-                        <label for="exampleInputEmail1">Item ID</label>
+                    <!-- <div class="m-4">
+                        <label for="exampleInputEmail1">Category ID</label>
                         <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                            placeholder="Enter Item ID" name="itemID">
-                    </div>
+                            placeholder="Enter Item ID" name="categoryID">
+                    </div> -->
 
 
                     <div class="m-4">
-                        <label for="exampleInputEmail1">Item Name</label>
+                        <label for="exampleInputEmail1">Category</label>
+
                         <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                            placeholder="Enter Item Name" name="itemname">
-                    </div>
+                            placeholder="Enter categoryId" name="categoryId" value=<%=data %>>
 
-                    <div class="m-4">
-                        <label for="exampleInputEmail1">Item Category</label>
-                        <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" name="category">
-                            <option selected>Select..</option>
-                            <option value="1">South Indian</option>
-                            <option value="2">Chinease</option>
+
+                        <select class="custom-select mr-sm-2 mt-2" id="inlineFormCustomSelect" name="categoryId">
+
+                            <% category.forEach(item => {  %>
+
+                            <% if(data == item.categoryId) { %>
+                            <option value=<%= item.categoryId %> selected> <%= item.categoryName %></option>
+                            <% } 
+
+                                else{ %>
+                            <option value=<%= item.categoryId %>> <%= item.categoryName %></option>
+                            <% } %>
+
+                            <%}) %>
+
                         </select>
                     </div>
+                </div>
 
-
-                    <div class="m-4">
-                        <label for="exampleInputEmail1">Item Price</label>
-                        <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                            placeholder="Enter Item Price" name="price">
-                    </div>
-
-
-                    <button type="submit" class="btn btn-primary ml-4">Submit</button>
+                <button type="submit" class="btn btn-primary ml-4">Submit</button>
 
             </form>
         </div>

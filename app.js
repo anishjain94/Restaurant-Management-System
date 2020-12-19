@@ -46,11 +46,29 @@ const ongoingorder = require("./routers/chef/ongoingorder");
 app.use("/ongoingorder", ongoingorder);
 
 
-const additem = require("./routers/additem");
-app.use("/additems", additem);
+const edititem = require("./routers/edititem");
+app.use("/edititems", edititem);
 
 const addcategory = require("./routers/addcategory.js");
 app.use("/addcategory", addcategory);
+
+
+const addstaff = require("./routers/addstaff.js");
+app.use("/addstaff", addstaff);
+
+
+const deleteitem = require("./routers/deleteitem.js");
+app.use("/deleteitems", deleteitem);
+
+const additems = require("./routers/additems.js");
+app.use("/additems", additems);
+
+
+const editcategory = require("./routers/editcategory.js");
+app.use("/editcategory", editcategory);
+
+const deletecategory = require("./routers/deletecategory.js");
+app.use("/deletecategory", deletecategory);
 
 
 // Post.find({}, function (err, posts) {

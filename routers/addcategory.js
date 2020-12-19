@@ -16,7 +16,8 @@ router.post("/", (req, res) => {
         })
             .then(function (response) {
                 console.log(response);
-                res.render("addcategories", { status: true });
+                
+                res.redirect("/categories");
             })
             .catch(function (error) {
                 res.render("addcategories");
