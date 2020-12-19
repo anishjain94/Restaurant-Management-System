@@ -46,6 +46,11 @@ const ongoingorder = require("./routers/chef/ongoingorder");
 app.use("/ongoingorder", ongoingorder);
 
 
+const additem = require("./routers/additem");
+app.use("/additems", additem);
+
+const addcategory = require("./routers/addcategory.js");
+app.use("/addcategory", addcategory);
 
 
 // Post.find({}, function (err, posts) {

@@ -10,10 +10,10 @@ router.get("/", (req, res) => {
 
             res.render("items", { item: response.data });
 
-            // response.data.forEach(element => {
-            //     console.log(element);
-            // });
-            // console.log(response);
+            response.data.forEach(element => {
+                console.log(element);
+            });
+            console.log(response);
         } catch (error) {
             console.error(error);
         }
