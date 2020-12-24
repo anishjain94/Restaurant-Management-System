@@ -16,7 +16,7 @@ router.post("/", (req, res) => {
         })
             .then(function (response) {
                 console.log(response);
-                
+
                 res.redirect("/categories");
             })
             .catch(function (error) {

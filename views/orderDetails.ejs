@@ -1,0 +1,70 @@
+<%- include("partials/header"); -%>
+
+<div class="d-flex flex-column" id="content-wrapper">
+    <div id="content">
+        <nav class="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar static-top">
+            <h3 class="text-dark mb-0">Dashboard</h3>
+        </nav>
+        <div class="container-lg shadow p-3 mb-5 bg-white rounded">
+            <br/><h5> &nbsp; Order Details </h5><br/>
+            <div id="orderTable">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th scope="col">Item Name</th>
+                            <th scope="col">Quantity</th>
+                            <th scope="col">Price</th>
+                            <th scope="col">Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% order.forEach(element =>  { %>
+                        <tr>
+                            <td scope="row"><%= element.item.itemName %></td>
+                            <td><%= element.quantity %></td>
+                            <td><%= element.item.itemPrice %></td>
+                            <td><%= element.quantity * element.item.itemPrice%></td>
+                        </tr>
+                        <% }) %>
+                        <tr>
+                            <th colspan="3" style="text-align:right;">Total &nbsp;</th>
+                            <th><%= order[0].order.orderTotal %></th>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="d-flex flex-row-reverse mr-3 block">
+                <button class="btn btn-success" onclick="PrintTable();"><b> Print Bill </b></button>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</body>
+<script type="text/javascript">
+    function PrintTable() {
+        var sTable = document.getElementById('orderTable').innerHTML;
+
+        var style = "<style>";
+        style = style + "table {width: 100%;font: 17px Calibri;}";
+        style = style + "table, th, td {border: solid 1px #DDD; border-collapse: collapse;";
+        style = style + "padding: 2px 3px;text-align: center;}";
+        style = style + "</style>";
+
+        // CREATE A WINDOW OBJECT.
+        var win = window.open('', '', 'height=700,width=700');
+
+        win.document.write('<html><head>');
+        win.document.write('<title>Restaurant Management</title>');   // <title> FOR PDF HEADER.
+        win.document.write(style);          // ADD STYLE INSIDE THE HEAD TAG.
+        win.document.write('</head>');
+        win.document.write('<body>');
+        win.document.write(sTable);         // THE TABLE CONTENTS INSIDE THE BODY TAG.
+        win.document.write('</body></html>');
+
+        win.document.close(); 	// CLOSE THE CURRENT WINDOW.
+
+        win.print();    // PRINT THE CONTENTS.
+    }
+</script>
+</html>

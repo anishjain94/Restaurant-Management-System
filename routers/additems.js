@@ -27,9 +27,10 @@ router.post("/", (req, res) => {
     console.log("in post");
     async function getuser() {
 
-        console.log(req.body);
+        console.log(req.body.data);
+
         await axios.post('http://localhost:8080/item/add', {
-            "itemId": 7,
+            "itemId": 14,
             "itemName": req.body.itemname,
             "itemDescription": req.body.itemdescription,
             "itemPrice": req.body.itemprice,

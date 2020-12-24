@@ -11,14 +11,14 @@ router.get("/", (req, res) => {
         async function getuser() {
 
             try {
-                // const response = await axios.get(`http://localhost:8080/category/show/${req.query.id}`);
+                const response = await axios.get(`http://localhost:8080/category/show/${req.query.id}`);
 
-                const categories = await axios.get(`http://localhost:8080/category/show`);
+                // const categories = await axios.get(`http://localhost:8080/category/show`);
 
                 // console.log(response);
-                console.log(categories.data);
+                console.log(response.data);
 
-                res.render("editcategories", { data: req.query.id, category: categories.data });
+                res.render("editcategories", { category: response.data });
 
             } catch (error) {
                 console.error(error);
@@ -36,29 +36,24 @@ router.get("/", (req, res) => {
 });
 
 
-// router.post("/", (req, res) => {
-//     async function getuser() {
-//         await axios.post('http://localhost:8080/item/add', {
-//             itemId: req.body.itemID,
-//             itemName: req.body.itemname,
-//             itemPrice: req.body.price,
-//             itemDescription: "..",
-//             category: {
-//                 categoryId: req.body.categoryId,
-//                 categoryName: "South Indian"
-//             }
+router.post("/", (req, res) => {
 
-//         })
-//             .then(function (response) {
-//                 res.render("additem", { msg: "success" });
-//                 // console.log(response);
-//             })
-//             .catch(function (error) {
-//                 res.render("additem", { msg: "error" });
-//             });
-//     }
+    console.log("in put");
+    async function getuser() {
+        await axios.put('http://localhost:8080/category/update', {
+            categoryId: req.body.categoryId,
+            categoryName: req.body.categoryname
+        })
+            .then(function (response) {
+                res.redirect("categories");
+                // console.log(response);
+            })
+            .catch(function (error) {
+                res.render("additem", { msg: "error" });
+            });
+    }
 
-//     getuser();
-// });
+    getuser();
+});
 
 module.exports = router;

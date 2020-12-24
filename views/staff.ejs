@@ -8,7 +8,6 @@
         </nav>
 
 
-
         <div class="container-lg shadow p-3 mb-5 bg-white rounded">
             <div class="table-responsive">
                 <div class="table-wrapper">
@@ -18,57 +17,46 @@
                                 <h2>Employee Details</h2>
                             </div>
                             <div class="col-sm-4">
-                                <button type="button" class="btn btn-info add-new"><i class="fa fa-plus"></i>
+                                <a type="button" class="btn btn-info add-new" href="/addstaff"><i
+                                        class="fa fa-plus"></i>
                                     Add
-                                    New</button>
+                                    New</a>
                             </div>
                         </div>
                     </div>
                     <table class="table table-bordered">
                         <thead>
                             <tr>
-                                <th>Employee Name</th>
+                                <th>Employee Number</th>
                                 <th>Employee Type</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
+
+
+
                         <tbody>
+
+                            <% item.forEach(element => { %>
+
                             <tr>
-                                <td>John Doe</td>
-                                <td>Administration</td>
+                                <td><%= element.mobileNumber %> </td>
+                                <td><%= element.userType.userTypeName %></td>
+
                                 <td>
-                                    <a class="add" title="Add" data-toggle="tooltip"><i
-                                            class="material-icons">&#xE03B;</i></a>
-                                    <a class="edit" title="Edit" data-toggle="tooltip"><i
-                                            class="material-icons">&#xE254;</i></a>
-                                    <a class="delete" title="Delete" data-toggle="tooltip"><i
-                                            class="material-icons">&#xE872;</i></a>
+                                    <a class="" title="Edit" data-toggle="tooltip"
+                                        href=<%= "/editstaff?id="+ element.mobileNumber %>> <i class="material-icons"
+                                            style="color:#FFC107;">&#xE254;</i></a>
+
+                                    <a class="" title="Delete" data-toggle="tooltip"
+                                        href=<%= "/deletestaff?id="+ element.mobileNumber %>><i class="material-icons"
+                                            style="color:red;">
+                                            &#xE872;</i></a>
                                 </td>
                             </tr>
-                            <tr>
-                                <td>Peter Parker</td>
-                                <td>Customer Service</td>
-                                <td>
-                                    <a class="add" title="Add" data-toggle="tooltip"><i
-                                            class="material-icons">&#xE03B;</i></a>
-                                    <a class="edit" title="Edit" data-toggle="tooltip"><i
-                                            class="material-icons">&#xE254;</i></a>
-                                    <a class="delete" title="Delete" data-toggle="tooltip"><i
-                                            class="material-icons">&#xE872;</i></a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Fran Wilson</td>
-                                <td>Human Resources</td>
-                                <td>
-                                    <a class="add" title="Add" data-toggle="tooltip"><i
-                                            class="material-icons">&#xE03B;</i></a>
-                                    <a class="edit" title="Edit" data-toggle="tooltip"><i
-                                            class="material-icons">&#xE254;</i></a>
-                                    <a class="delete" title="Delete" data-toggle="tooltip"><i
-                                            class="material-icons">&#xE872;</i></a>
-                                </td>
-                            </tr>
+
+                            <% }); %>
+
                         </tbody>
                     </table>
                 </div>
@@ -120,19 +108,19 @@
         $('[data-toggle="tooltip"]').tooltip();
         var actions = $("table td:last-child").html();
         // Append table with add row form on add new button click
-        $(".add-new").click(function () {
-            $(this).attr("disabled", "disabled");
-            var index = $("table tbody tr:last-child").index();
-            var row = '<tr>' +
-                '<td><input type="text" class="form-control" name="name" id="name"></td>' +
-                '<td><input type="text" class="form-control" name="department" id="department"></td>' +
+        // $(".add-new").click(function () {
+        //     $(this).attr("disabled", "disabled");
+        //     var index = $("table tbody tr:last-child").index();
+        //     var row = '<tr>' +
+        //         '<td><input type="text" class="form-control" name="name" id="name"></td>' +
+        //         '<td><input type="text" class="form-control" name="department" id="department"></td>' +
 
-                '<td>' + actions + '</td>' +
-                '</tr>';
-            $("table").append(row);
-            $("table tbody tr").eq(index + 1).find(".add, .edit").toggle();
-            $('[data-toggle="tooltip"]').tooltip();
-        });
+        //         '<td>' + actions + '</td>' +
+        //         '</tr>';
+        //     $("table").append(row);
+        //     $("table tbody tr").eq(index + 1).find(".add, .edit").toggle();
+        //     $('[data-toggle="tooltip"]').tooltip();
+        // });
         // Add row on add button click
         $(document).on("click", ".add", function () {
             var empty = false;

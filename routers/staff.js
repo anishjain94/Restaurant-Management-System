@@ -7,20 +7,18 @@ router.get("/", (req, res) => {
 
     async function getStaff() {
         try {
-            const response = await axios.get('http://localhost:8080/item/show');
+            const response = await axios.get('http://localhost:8080/user/show');
 
-            res.render("items", { item: response.data });
+            console.log(response.data);
 
-            response.data.forEach(element => {
-                console.log(element);
-            });
-            console.log(response);
+            res.render("staff", { item: response.data });
+
         } catch (error) {
             console.error(error);
         }
     };
+
     getStaff();
-    res.render("staff");
 });
 
 module.exports = router;

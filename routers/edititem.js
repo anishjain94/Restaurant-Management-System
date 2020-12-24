@@ -13,6 +13,7 @@ router.get("/", (req, res) => {
             try {
                 const response = await axios.get(`http://localhost:8080/item/show/${req.query.id}`);
                 const categories = await axios.get(`http://localhost:8080/category/show`);
+
                 res.render("edititems", { data: response.data, category: categories.data });
 
             } catch (error) {
@@ -24,35 +25,44 @@ router.get("/", (req, res) => {
             console.log(res);
         });
     }
-
-
-
 });
 
 
-// router.post("/", (req, res) => {
-//     async function getuser() {
-//         await axios.post('http://localhost:8080/item/add', {
-//             itemId: req.body.itemID,
-//             itemName: req.body.itemname,
-//             itemPrice: req.body.price,
-//             itemDescription: "..",
-//             category: {
-//                 categoryId: req.body.categoryId,
-//                 categoryName: "South Indian"
-//             }
+router.post("/", (req, res) => {
 
-//         })
-//             .then(function (response) {
-//                 res.render("additem", { msg: "success" });
-//                 // console.log(response);
-//             })
-//             .catch(function (error) {
-//                 res.render("additem", { msg: "error" });
-//             });
-//     }
+    console.log("in put");
 
-//     getuser();
-// });
+    async function getuser() {
+
+        // console.log(req.body.itemID);
+
+        await axios.put('http://localhost:8080/item/update', {
+
+            itemId: req.body.itemID,
+            itemName: req.body.itemname,
+            itemDescription: "..",
+            itemPrice: req.body.price,
+            category: {
+                categoryId: req.body.categoryId,
+                categoryName: ""
+            }
+
+        })
+            .then(function (response) {
+                res.redirect("/home");
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }
+
+    getuser();
+});
+
+router.post("/", (req, res) => {
+
+    console.log("post");
+
+})
 
 module.exports = router;

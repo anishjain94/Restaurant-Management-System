@@ -5,73 +5,30 @@
         <nav class="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar static-top">
             <h3 class="text-dark mb-0">Dashboard</h3>
         </nav>
-
-
-        <div class="container-lg shadow p-3 mb-3 bg-white rounded">
-
-            <!-- <form class="form-inline">
-                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-            </form> -->
-            <form>
-                <div class="form-group">
-                    <label for="exampleInputEmail1">Table Number</label>
-                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                        placeholder="Enter Table Number">
-                </div>
-                <button type="submit" class="btn btn-primary">View Bill</button>
-            </form>
-        </div>
-
         <div class="container-lg shadow p-3 mb-5 bg-white rounded">
-
-            <h5>Order Details</h5>
-            <table class="table">
+            <br/><h5> &nbsp; Active Orders</h5><br/>
+            <table class="table table-bordered">
                 <thead>
                     <tr>
-                        <th scope="col">Item</th>
-                        <th scope="col">Quantity</th>
-                        <th scope="col">Price</th>
+                        <th scope="col">Order Id</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Total</th>
+                        <th scope="col">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
+                    <% order.forEach(element =>  { %>
                     <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
+                        <th scope="row"><%= element.orderId %></th>
+                        <td><%= element.orderDate %></td>
+                        <td><%= element.orderTotal %></td>
+                        <td><a href=<%= "/orderDetails?id="+element.orderId %>> Details </a></td>
                     </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td>Larry</td>
-                        <td>the Bird</td>
-                    </tr>
+                    <% }) %>
                 </tbody>
             </table>
-
-
-            <div class="d-flex flex-row-reverse mr-3 block">
-
-                <button class="btn btn-success"><b> Print Bill </b></button>
-
-                <div class="p-2"><b> 1000</b></div>
-
-                <div class="p-2">Total : </div>
-
-            </div>
-
-
-
-
-
         </div>
-
     </div>
-
 </div>
 
 

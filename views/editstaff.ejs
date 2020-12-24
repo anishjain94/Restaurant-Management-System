@@ -6,36 +6,40 @@
             <h3 class="text-dark mb-0">Dashboard</h3>
         </nav>
 
-
         <div class="container-lg shadow p-3 mb-3 bg-white rounded">
+            <form action="/editstaff" method="POST">
 
-            <form action="/editcategory" method="POST">
                 <div class="form-group">
 
-                    <!-- <div class="m-4">
-                        <label for="exampleInputEmail1">Category ID</label>
+                    <div class="m-4">
+                        <label for="exampleInputEmail1">Mobile Number</label>
                         <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                            placeholder="Enter Item ID" name="categoryID">
-                    </div> -->
+                            placeholder="Enter Mobile Number" name="number" value=<%= item.mobileNumber %>>
+                    </div>
 
 
                     <div class="m-4">
-                        <label for="exampleInputEmail1">Category</label>
+                        <label for="exampleInputEmail1">Employee Type</label>
 
-                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                            placeholder="Enter categoryId" name="categoryId" value=<%=category.categoryId %>>
+                        <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" name="emptype">
+
+                            <% emptype.forEach(emp => { %>
+
+                            <% if(item.userType.userTypeId == emp.userTypeId) {%>
+                            <option value=<%= emp.userTypeId %> selected> <%= emp.userTypeId %> </option>
+                            <% } else{ %>
+                            <option value=<%= emp.userTypeId %>> <%= emp.userTypeId %> </option>
+
+
+                            <% } %>
+
+
+                            <% }) %>
+                        </select>
 
                     </div>
-
-                    <div class="m-4">
-                        <label for="exampleInputEmail1">Category Name</label>
-                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                            placeholder="Enter Item ID" name="categoryname" value=<%=category.categoryName %>>
-                    </div>
-
 
                 </div>
-
                 <button type="submit" class="btn btn-primary ml-4">Submit</button>
 
             </form>

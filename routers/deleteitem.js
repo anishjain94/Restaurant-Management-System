@@ -10,9 +10,7 @@ router.get("/", (req, res) => {
 
         async function getuser() {
             try {
-
                 const response = await axios.delete(`http://localhost:8080/item/delete/${req.query.id}`);
-
                 res.redirect("/home");
                 // res.re("edititems", { data: response.data, category: categories.data });
 
