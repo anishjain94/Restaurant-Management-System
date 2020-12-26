@@ -60,7 +60,7 @@ router.post("/add", (req, res) => {
 
     async function getuser() {
         try {
-            await axios.post(`http://localhost:8080/waiting/add`,{
+            const response = await axios.post(`http://localhost:8080/waiting/add`,{
                 "waitingNumber": req.body.waitingNumber,
                 "numberOfPerson": req.body.numberOfPerson,
                 "customerBean": {

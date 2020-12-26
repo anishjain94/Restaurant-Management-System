@@ -18,6 +18,10 @@ app.use("/orderDetails", order);
 const home = require("./routers/home");
 app.use("/home", home);
 
+
+const tables = require("./routers/tables");
+app.use("/tables", tables);
+
 const login = require("./routers/login");
 app.use("/", login);
 
@@ -39,11 +43,6 @@ app.use("/waitinglist", waitinglist);
 
 const pendingorder = require("./routers/chef/pendingorder");
 app.use("/pendingorder", pendingorder);
-
-
-const ongoingorder = require("./routers/chef/ongoingorder");
-app.use("/ongoingorder", ongoingorder);
-
 
 const edititem = require("./routers/edititem");
 app.use("/edititems", edititem);
@@ -70,7 +69,7 @@ const deletecategory = require("./routers/deletecategory.js");
 app.use("/deletecategory", deletecategory);
 
 
-app.listen(3000, function () {
+app.listen(3001, function () {
   console.log("Server started on port 3000");
 });
 

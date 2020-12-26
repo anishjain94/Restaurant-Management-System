@@ -23,7 +23,7 @@ router.post("/", (req, res) => {
             "password": req.body.password,
             "userName": req.body.name,
             "userType": {
-                userTypeId: req.body.empid,
+                "userTypeId": req.body.userTypeId,
             }
         })
             .then(function (response) {
@@ -46,7 +46,7 @@ router.post("/edit", (req, res) => {
             }
         })
         console.log(response.data);
-        res.redirect(`staff?msg=${response.data}`);
+        res.redirect(`/staff?msg=${response.data}`);
     }
 
     getuser().catch(function err(err){

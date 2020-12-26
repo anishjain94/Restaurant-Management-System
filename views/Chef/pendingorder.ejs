@@ -1,6 +1,12 @@
 <%- include("partials/chefheader"); -%>
 
-
+<script>
+    var msg = "<%= msg %>" ;
+    $(document).ready(function() {
+       if(msg)
+           alert(msg);
+    })
+</script>
 
 
 <div class="d-flex flex-column" id="content-wrapper">
@@ -16,60 +22,33 @@
         </nav>
 
         <div class="card-deck ml-1">
-
+            <%
+            let i=0; 
+            data.forEach(element => { %>
             <div class="card col w-75">
                 <div class="card-body">
-                    <h5 class="card-title">Order No : 3</h5>
+                    <h5 class="card-title"><%= element.order.orderId %></h5>
 
-                    <h5 class="card-title">Fried Rice</h5>
+                    <h5 class="card-title"><%= element.item.itemName %></h5>
 
-                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to
-                        additional content. This content is a little bit longer.</p>
+                    <p class="card-text"><%= element.instruction %></p>
 
-                    <button class="btn btn-success">Accept Order</button>
-                    <button class="btn btn-danger">Cancel Order</button>
+                    <a href="/pendingorder/complete?id=<%= element.orderedItemsId %>"><button class="btn btn-primary">Ready To Serve</button></a>
 
                 </div>
                 <div class="card-footer">
-                    <small class="text-muted">Order received 3 mins ago</small>
+                    <small class="text-muted">Order received</small>
                 </div>
             </div>
-
-            <div class="card col w-75">
-                <div class="card-body">
-                    <h5 class="card-title">Order No : 3</h5>
-
-                    <h5 class="card-title">Fried Rice</h5>
-
-                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to
-                        additional content. This content is a little bit longer.</p>
-
-                    <button class="btn btn-success">Accept Order</button>
-                    <button class="btn btn-danger">Cancel Order</button>
-
-                </div>
-                <div class="card-footer">
-                    <small class="text-muted">Order received 3 mins ago</small>
-                </div>
-            </div>
-
-            <div class="card col w-75">
-                <div class="card-body">
-                    <h5 class="card-title">Order No : 3</h5>
-
-                    <h5 class="card-title">Fried Rice</h5>
-
-                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to
-                        additional content. This content is a little bit longer.</p>
-
-                    <button class="btn btn-success">Accept Order</button>
-                    <button class="btn btn-danger">Cancel Order</button>
-
-                </div>
-                <div class="card-footer">
-                    <small class="text-muted">Order received 3 mins ago</small>
-                </div>
-            </div>
+            
+            <%i++;
+                if(i%4 == 0)
+                {
+                    %>
+        </div><br/><div class="card-deck ml-1">
+                    <%
+                }
+            }) %>
 
         </div>
 
