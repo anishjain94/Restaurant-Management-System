@@ -20,39 +20,30 @@ router.get("/", (req, res) => {
             }
         };
 
-        getuser().then(res => {
-            console.log(res);
-        });
+        getuser();
     }
-
-
-
 });
 
 
-// router.post("/", (req, res) => {
-//     async function getuser() {
-//         await axios.post('http://localhost:8080/item/add', {
-//             itemId: req.body.itemID,
-//             itemName: req.body.itemname,
-//             itemPrice: req.body.price,
-//             itemDescription: "..",
-//             category: {
-//                 categoryId: req.body.categoryId,
-//                 categoryName: "South Indian"
-//             }
+router.post("/", (req, res) => {
+    async function getuser() {
+        await axios.put('http://localhost:8080/item/update', {
+            "itemId": req.body.itemID,
+            "itemName": req.body.itemname,
+            "itemDescription": req.body.itemdescription,
+            "itemPrice": req.body.itemprice,
+            "category": {
+                "categoryId": req.body.categoryId,
+                "categoryName": ""
+            }
 
-//         })
-//             .then(function (response) {
-//                 res.render("additem", { msg: "success" });
-//                 // console.log(response);
-//             })
-//             .catch(function (error) {
-//                 res.render("additem", { msg: "error" });
-//             });
-//     }
+        })
+            .then(function (response) {
+                res.redirect(`/home?msg=${response.data}`);
+            });
+    }
 
-//     getuser();
-// });
+    getuser();
+});
 
 module.exports = router;

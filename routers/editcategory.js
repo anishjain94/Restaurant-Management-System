@@ -13,12 +13,8 @@ router.get("/", (req, res) => {
             try {
                 // const response = await axios.get(`http://localhost:8080/category/show/${req.query.id}`);
 
-                const categories = await axios.get(`http://localhost:8080/category/show`);
-
-                // console.log(response);
-                console.log(categories.data);
-
-                res.render("editcategories", { data: req.query.id, category: categories.data });
+                const categories = await axios.get(`http://localhost:8080/category/show/${req.query.id}`);
+                res.render("editcategories", {data: categories.data });
 
             } catch (error) {
                 console.error(error);
@@ -36,29 +32,20 @@ router.get("/", (req, res) => {
 });
 
 
-// router.post("/", (req, res) => {
-//     async function getuser() {
-//         await axios.post('http://localhost:8080/item/add', {
-//             itemId: req.body.itemID,
-//             itemName: req.body.itemname,
-//             itemPrice: req.body.price,
-//             itemDescription: "..",
-//             category: {
-//                 categoryId: req.body.categoryId,
-//                 categoryName: "South Indian"
-//             }
+router.post("/", (req, res) => {
+    async function getuser() {
+        await axios.put('http://localhost:8080/category/update', {
+                categoryId: req.body.categoryId,
+                categoryName: req.body.categoryName
 
-//         })
-//             .then(function (response) {
-//                 res.render("additem", { msg: "success" });
-//                 // console.log(response);
-//             })
-//             .catch(function (error) {
-//                 res.render("additem", { msg: "error" });
-//             });
-//     }
+        })
+            .then(function (response) {
+                res.redirect(`categories?msg=${response.data}`);
+                // console.log(response);
+            })
+    }
 
-//     getuser();
-// });
+    getuser();
+});
 
 module.exports = router;

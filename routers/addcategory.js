@@ -11,17 +11,14 @@ router.get("/", (req, res) => {
 router.post("/", (req, res) => {
     async function getuser() {
         await axios.post('http://localhost:8080/category/add', {
-            categoryId: req.body.categoryID,
+            categoryId: '0',
             categoryName: req.body.categoryname
         })
             .then(function (response) {
                 console.log(response);
                 
-                res.redirect("/categories");
+                res.redirect(`categories?msg=${response.data}`);
             })
-            .catch(function (error) {
-                res.render("addcategories");
-            });
     }
 
     getuser();

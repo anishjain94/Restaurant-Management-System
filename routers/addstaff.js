@@ -4,29 +4,54 @@ const axios = require("axios");
 
 
 router.get("/", (req, res) => {
-    res.render("addstaff");
+    async function getuser() {
+        try {
+            const response = await axios.get('http://localhost:8080/userType/show');
+            res.render("addstaff", { list: response.data });
+        } catch (error) {
+            console.error(error);
+        }
+    };
+    getuser();
 });
 
 
 router.post("/", (req, res) => {
     async function getuser() {
         await axios.post('http://localhost:8080/user/add', {
-            mobileNumber: req.body.number,
-            password: req.body.password,
-            userType: {
+            "mobileNumber": req.body.number,
+            "password": req.body.password,
+            "userName": req.body.name,
+            "userType": {
                 userTypeId: req.body.empid,
             }
         })
             .then(function (response) {
-                res.render("addstaff", { msg: "success" });
+                res.redirect(`staff?msg=${response.data}`);
                 // console.log(response);
             })
-            .catch(function (error) {
-                res.render("addstaff", { msg: "error" });
-            });
     }
 
     getuser();
+});
+
+router.post("/edit", (req, res) => {
+    async function getuser() {
+        const response = await axios.put(`http://localhost:8080/user/update/${req.body.number}`, {
+            "mobileNumber": req.body.number,
+            "password": req.body.password,
+            "userName": req.body.name,
+            "userType": {
+                userTypeId: req.body.empid,
+            }
+        })
+        console.log(response.data);
+        res.redirect(`staff?msg=${response.data}`);
+    }
+
+    getuser().catch(function err(err){
+        console.log(err)
+    });
 });
 
 module.exports = router;

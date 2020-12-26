@@ -8,39 +8,38 @@
 
         <div class="container-lg shadow p-3 mb-3 bg-white rounded">
 
-            <form action="/additems" method="POST">
+            <form action="/edititems" method="POST">
 
                 <div class="form-group">
 
                     <div class="m-4">
                         <label for="exampleInputEmail1">Item Name</label>
                         <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                            placeholder="Enter Item ID" name="itemname">
+                            placeholder="Enter Item Name" name="itemname" required>
+                    </div>
+
+                    <div class="m-4">
+                        <label for="exampleInputEmail1">Category Name</label>
+
+                        <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" name="categoryId" required>
+                            <option value="0" disabled>Select Category</option>
+                            <% category.forEach(item => {  %>
+                            <option value=<%= item.categoryId %> selected> <%= item.categoryName %></option>
+                            <%}) %>
+                        </select>
                     </div>
 
                     <div class="m-4">
                         <label for="exampleInputEmail1">Item Description</label>
                         <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                            placeholder="Enter Item ID" name="itemdescription">
+                            placeholder="Enter Item Description" name="itemdescription" required>
                     </div>
 
 
                     <div class="m-4">
                         <label for="exampleInputEmail1">Item Price</label>
                         <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                            placeholder="Enter Item ID" name="itemprice">
-                    </div>
-
-
-                    <div class="m-4">
-                        <label for="exampleInputEmail1">Category Name</label>
-
-                        <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" name="categoryId">
-
-                            <% category.forEach(item => {  %>
-                            <option value=<%= item.categoryId %> selected> <%= item.categoryName %></option>
-                            <%}) %>
-                        </select>
+                            placeholder="Enter Item Price" name="itemprice" required>
                     </div>
 
 

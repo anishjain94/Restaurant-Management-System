@@ -9,11 +9,7 @@ router.get("/", (req, res) => {
         try {
             const response = await axios.get('http://localhost:8080/category/show');
 
-            res.render("categories", { category: response.data });
-
-            response.data.forEach(element => {
-                console.log(element);
-            });
+            res.render("categories", { category: response.data ,msg: req.query.msg});
 
         } catch (error) {
             console.error(error);

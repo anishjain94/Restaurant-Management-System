@@ -31,11 +31,13 @@
                     </div>
 
                     <div class="m-4">
-                        <label for="exampleInputEmail1">Employee Type</label>
-                        <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" name="empid">
-                            <option selected>Select..</option>
-                            <option value="3">Chef</option>
-                            <option value="2">Waiter</option>
+                        <label for="exampleInputEmail1">Category Name</label>
+
+                        <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" name="categoryId" required>
+                            <option value="0" disabled selected>Select Category</option>
+                            <% list.forEach(item => {  %>
+                            <option value=<%= item.categoryId %> selected> <%= item.userTypeName %></option>
+                            <%}) %>
                         </select>
                     </div>
 

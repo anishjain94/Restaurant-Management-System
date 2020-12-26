@@ -8,7 +8,7 @@ router.get("/", (req, res) => {
         try {
             const response = await axios.get('http://localhost:8080/item/show');
 
-            res.render("items", { item: response.data });
+            res.render("items", { item: response.data ,msg: req.query.msg});
 
             response.data.forEach(element => {
                 console.log(element);

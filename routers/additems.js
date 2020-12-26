@@ -29,7 +29,7 @@ router.post("/", (req, res) => {
 
         console.log(req.body);
         await axios.post('http://localhost:8080/item/add', {
-            "itemId": 7,
+            "itemId": '0',
             "itemName": req.body.itemname,
             "itemDescription": req.body.itemdescription,
             "itemPrice": req.body.itemprice,
@@ -38,11 +38,7 @@ router.post("/", (req, res) => {
             }
         })
             .then(function (response) {
-                console.log(response);
-                res.redirect("/home");
-            })
-            .catch(function (error) {
-
+                res.redirect(`/home?msg=${response.data}`);
             });
     }
 

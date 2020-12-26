@@ -8,21 +8,41 @@
 
 
         <div class="container-lg shadow p-3 mb-3 bg-white rounded">
-            <form action="/editcategory" method="POST">
+            <form action="/addstaff/edit" method="POST">
 
                 <div class="form-group">
 
-                        <input type="hidden" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                            placeholder="Enter categoryId" name="categoryId" value=<%=data.categoryId %>>
                     <div class="m-4">
-                        <label for="exampleInputEmail1">Category Name</label>
-
-                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                            placeholder="Enter categoryName" name="categoryName" value='<%=data.categoryName %>'>
+                        <label for="exampleInputEmail1">Mobile Number</label>
+                        <input type="hidden" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                            placeholder="Enter Mobile Number" name="number" value="<%= user.mobileNumber %>">
+                        
+                            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                            placeholder="Enter Mobile Number" name="" value="<%= user.mobileNumber %>" disabled>
                     </div>
-                </div>
 
-                <button type="submit" class="btn btn-primary ml-4">Submit</button>
+                    <div class="m-4">
+                        <label for="exampleInputEmail1">Employee Name</label>
+                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                            placeholder="Enter Employee Name" name="name" value="<%= user.userName %>">
+                    </div>
+
+                    <div class="m-4">
+                        <label for="exampleInputEmail1">CategoryID</label>
+                        <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" name="empid" required>
+
+                            <% list.forEach(item => {  %>
+                            <% if(user.userType.userTypeId === item.userTypeId) { %>
+                                <option value=<%= item.userTypeId %> selected> <%= item.userTypeName %></option>
+                            <% } 
+                            else{ %>
+                                <option value=<%= item.userTypeId %>> <%= item.userTypeName %></option>
+                            <% } %>
+                            <%}) %>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary ml-4">Submit</button>
 
             </form>
         </div>

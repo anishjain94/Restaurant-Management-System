@@ -1,5 +1,13 @@
 <%- include("partials/header"); -%>
 
+<script>
+     var msg = "<%= msg %>" ;
+     $(document).ready(function() {
+        if(msg)
+            alert(msg);
+     })
+</script>
+
 <div class="d-flex flex-column" id="content-wrapper">
     <div id="content">
         <nav class="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar static-top">

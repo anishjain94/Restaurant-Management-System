@@ -1,5 +1,15 @@
 <%- include("partials/header"); -%>
 
+
+<script>
+    var msg = "<%= msg %>" ;
+    $(document).ready(function() {
+       if(msg)
+           alert(msg);
+    })
+</script>
+  
+
 <div class="d-flex flex-column" id="content-wrapper">
     <div id="content">
         <nav class="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar static-top">
@@ -21,13 +31,14 @@
                             </div>
                         </div>
                     </div>
+                     <form action="/waitinglist/add" method="post" enctype="text/JSON">
                     <table class="table table-bordered">
                         <thead>
                             <tr>
-                                <th>Customer Name</th>
-                                <th>Waiting Number</th>
-                                <th>No of Guests</th>
-                                <th>Phone Number</th>
+                                <th width="7%">Waiting Number</th>
+                                <th width="10%">Customer Name</th>
+                                <th width="8%">No of Guests</th>
+                                <th width="8%">Phone Number</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -37,17 +48,27 @@
                             <% list.forEach(item => { %>
 
                             <tr>
-                                <td><%= item.customerBean.customerName %></td>
                                 <td><%= item.waitingNumber %></td>
+                                <td><%= item.customerBean.customerName %></td>
                                 <td><%= item.numberOfPerson %></td>
                                 <td><%= item.customerBean.mobileNumber %></td>
                                 <td>
-                                    <a class="add" title="Add" data-toggle="tooltip"><i
-                                            class="material-icons">&#xE03B;</i></a>
-                                    <a class="edit" title="Edit" data-toggle="tooltip"><i
-                                            class="material-icons">&#xE254;</i></a>
-                                    <a class="delete" title="Delete" data-toggle="tooltip"><i
-                                            class="material-icons">&#xE872;</i></a>
+                                   
+                                    <button class="btn btn-success add" type="submit"> Save </button>
+                                    <!-- <a class="edit" title="Edit" data-toggle="tooltip"><i
+                                            class="material-icons">&#xE254;</i></a> -->
+                                    <div class="edit">
+                                        <select class="custom-select mr-sm-2" id="tableDetail">
+                                            <option value='0' selected disabled>Select Table</option>
+                                            <% tables.forEach(element => { %>
+                                                <option value=<%= element.tableId %>> Table No. <%= element.tableId %>  Capacity => <%= element.tableCapacity %></option>
+                                            <% }) %>
+                                        </select>
+                                        <button class="btn btn-primary" style="margin-left:25%;margin-top:6%" onclick="sendData('<%= item.customerBean.mobileNumber %>');" type="button">Assign Table</button>
+                                    </div><br/>
+                                    <a class="delete" href=<%= "/waitinglist/delete?id=" + item.waitingNumber %> style="margin-left:35%;" data-toggle="tooltip">
+                                        <button class="btn btn-danger"  type="button">Delete</button>
+                                    </a>
                                 </td>
                             </tr>
 
@@ -55,33 +76,11 @@
 
                         </tbody>
                     </table>
+                    </form>
                 </div>
             </div>
         </div>
-
-        </table>
-
-
-
-
     </div>
-
-</div>
-
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -91,54 +90,34 @@
 <script src="/js/theme.js"></script>
 
 <script>
-    $(document).ready(function () {
+    function sendData(mobileNumber)
+    {
+        if($('#tableDetail').val() == '0')
+            alert("Select Table");
+        else
+        {
+            window.location.href = "/waitinglist/assignTable?number=" + mobileNumber + "&tableId=" + $('#tableDetail').val();
+        }
+    }
+   $(document).ready(function () {   
 
         $('[data-toggle="tooltip"]').tooltip();
-        var actions = $("table td:last-child").html();
         // Append table with add row form on add new button click
         $(".add-new").click(function () {
             $(this).attr("disabled", "disabled");
             var index = $("table tbody tr:last-child").index();
-            var row = '<tr>' +
-                '<td><input type="text" class="form-control" name="name" id="name"></td>' +
-                '<td><input type="text" class="form-control" name="department" id="department"></td>' +
-                '<td><input type="text" class="form-control" name="phone" id="phone"></td>' +
-                '<td>' + actions + '</td>' +
+            var row ='<tr>' + 
+                '<td><input type="text" class="form-control" name="waitingNumber"></td>' +
+                '<td><input type="text" class="form-control" name="customerName"></td>' +
+                '<td><input type="text" class="form-control" name="numberOfPerson"></td>' +
+                '<td><input type="text" class="form-control" name="mobileNumber"></td>' +
+                '<td><button class="btn btn-success add" type="submit"> Save </button></td>' +
                 '</tr>';
             $("table").append(row);
-            $("table tbody tr").eq(index + 1).find(".add, .edit").toggle();
+            $("table tbody tr").eq(index + 1).find(".add, .edit, .delete").toggle();
             $('[data-toggle="tooltip"]').tooltip();
         });
-        // Add row on add button click
-        $(document).on("click", ".add", function () {
-            var empty = false;
-            var input = $(this).parents("tr").find('input[type="text"]');
-            input.each(function () {
-                if (!$(this).val()) {
-                    $(this).addClass("error");
-                    empty = true;
-                } else {
-                    $(this).removeClass("error");
-                }
-            });
-            $(this).parents("tr").find(".error").first().focus();
-            if (!empty) {
-                input.each(function () {
-                    $(this).parent("td").html($(this).val());
-                });
-                $(this).parents("tr").find(".add, .edit").toggle();
-                $(".add-new").removeAttr("disabled");
-            }
-        });
-        // Edit row on edit button click
-        $(document).on("click", ".edit", function () {
-            $(this).parents("tr").find("td:not(:last-child)").each(function () {
-                $(this).html('<input type="text" class="form-control" value="' + $(this)
-                    .text() + '">');
-            });
-            $(this).parents("tr").find(".add, .edit").toggle();
-            $(".add-new").attr("disabled", "disabled");
-        });
+       
         // Delete row on delete button click
         $(document).on("click", ".delete", function () {
             $(this).parents("tr").remove();
