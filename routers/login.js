@@ -14,7 +14,7 @@ router.post("/", (req, res) => {
             "password":req.body.password
         })
         .then(function (response) {
-                res.redirect(`/home?msg=${response.data}`);
+                res.redirect(`/dashboard`);
                 // console.log(response);
             })
     }

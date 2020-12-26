@@ -66,7 +66,7 @@ router.post("/add", (req, res) => {
 
             const response = await axios.post(`http://localhost:8080/waiting/add`,{
 
-                "waitingNumber": req.body.waitingNumber,
+                "waitingNumber": '0',
                 "numberOfPerson": req.body.numberOfPerson,
                 "customerBean": {
                     "mobileNumber": req.body.mobileNumber,
