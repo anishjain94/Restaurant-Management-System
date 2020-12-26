@@ -15,6 +15,7 @@
     "body-parser": "^1.18.3",
     "ejs": "^2.6.1",
     "express": "^4.16.3",
+    "gitmoji-cli": "^3.2.16",
     "lodash": "^4.17.11",
     "mongoose": "^5.3.6",
     "nodemon": "^2.0.6"

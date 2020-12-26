@@ -12,6 +12,7 @@ router.get("/", (req, res) => {
             console.error(error);
         }
     };
+
     if(req.query.id !== undefined)
     {
         getOrderDetails();

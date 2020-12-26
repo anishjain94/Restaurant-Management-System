@@ -68,6 +68,22 @@ app.use("/editcategory", editcategory);
 const deletecategory = require("./routers/deletecategory.js");
 app.use("/deletecategory", deletecategory);
 
+const editstaff = require("./routers/editstaff.js");
+app.use("/editstaff", editstaff);
+
+
+//New Updation
+const order = require("./routers/orderDetails");
+app.use("/orderDetails", order);
+
+
+const waitinglist = require("./routers/waitinglist");
+app.use("/waitinglist", waitinglist);
+
+
+const bill = require("./routers/bill");
+app.use("/billing", bill);
+
 
 app.listen(3001, function () {
   console.log("Server started on port 3000");

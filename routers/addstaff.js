@@ -18,6 +18,7 @@ router.get("/", (req, res) => {
 
 router.post("/", (req, res) => {
     async function getuser() {
+
         await axios.post('http://localhost:8080/user/add', {
             "mobileNumber": req.body.number,
             "password": req.body.password,
@@ -29,6 +30,7 @@ router.post("/", (req, res) => {
             .then(function (response) {
                 res.redirect(`staff?msg=${response.data}`);
                 // console.log(response);
+
             })
     }
 

@@ -7,60 +7,40 @@
         </nav>
 
         <div class="container-lg shadow p-3 mb-3 bg-white rounded">
-            <form action="/edititems" method="POST">
+            <form action="/editstaff" method="POST">
 
                 <div class="form-group">
-                        <input type="hidden" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                            placeholder="Enter Item ID" name="itemID" value=<%=data.itemId %>>
-
 
                     <div class="m-4">
-                        <label for="exampleInputEmail1">Item Name</label>
+                        <label for="exampleInputEmail1">Mobile Number</label>
                         <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                            placeholder="Enter Item Name" name="itemname" value='<%=data.itemName %>' required>
+                            placeholder="Enter Mobile Number" name="number" value=<%= item.mobileNumber %>>
                     </div>
 
+
                     <div class="m-4">
-                        <label for="exampleInputEmail1">CategoryID</label>
+                        <label for="exampleInputEmail1">Employee Type</label>
 
-                        <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" name="categoryId" required>
+                        <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" name="emptype">
 
-                            <% category.forEach(item => {  %>
+                            <% emptype.forEach(emp => { %>
 
-                            <% if(data.category.categoryId === item.categoryId) { %>
-                            <option value=<%= item.categoryId %> selected> <%= item.categoryName %></option>
+                            <% if(item.userType.userTypeId == emp.userTypeId) {%>
+                            <option value=<%= emp.userTypeId %> selected> <%= emp.userTypeId %> </option>
+                            <% } else{ %>
+                            <option value=<%= emp.userTypeId %>> <%= emp.userTypeId %> </option>
 
-                            <% } 
-                            else{ %>
-
-                            <option value=<%= item.categoryId %>> <%= item.categoryName %></option>
 
                             <% } %>
 
 
-
-                            <%}) %>
-
-
+                            <% }) %>
                         </select>
+
                     </div>
 
-
-                    <div class="m-4">
-                        <label for="exampleInputEmail1">Item Description</label>
-                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                            placeholder="Enter Item Description" name="itemdescription" value='<%=data.itemDescription %>' required>
-                    </div>
-
-
-                    <div class="m-4">
-                        <label for="exampleInputEmail1">Item Price</label>
-                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                            placeholder="Enter Item Price" name="itemprice" value='<%=data.itemPrice %>' required>
-                    </div>
-
-
-                    <button type="submit" class="btn btn-primary ml-4">Submit</button>
+                </div>
+                <button type="submit" class="btn btn-primary ml-4">Submit</button>
 
             </form>
         </div>

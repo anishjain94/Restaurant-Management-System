@@ -13,6 +13,7 @@ router.get("/", (req, res) => {
             try {
                 const response = await axios.get(`http://localhost:8080/item/show/${req.query.id}`);
                 const categories = await axios.get(`http://localhost:8080/category/show`);
+
                 res.render("edititems", { data: response.data, category: categories.data });
 
             } catch (error) {
@@ -24,6 +25,7 @@ router.get("/", (req, res) => {
     }
 });
 
+        // console.log(req.body.itemID);
 
 router.post("/", (req, res) => {
     async function getuser() {

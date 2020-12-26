@@ -11,10 +11,8 @@ router.get("/", (req, res) => {
         async function getuser() {
 
             try {
-                // const response = await axios.get(`http://localhost:8080/category/show/${req.query.id}`);
-
-                const categories = await axios.get(`http://localhost:8080/category/show/${req.query.id}`);
-                res.render("editcategories", {data: categories.data });
+                const response = await axios.get(`http://localhost:8080/category/show/${req.query.id}`);
+                const categories = await axios.get(`http://localhost:8080/category/show/${req.query.id}`);                res.render("editcategories", {data: categories.data });
 
             } catch (error) {
                 console.error(error);

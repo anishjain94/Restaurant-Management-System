@@ -10,7 +10,9 @@ router.get("/", (req, res) => {
         try {
             const response = await axios.get('http://localhost:8080/waiting/show');
             const tables = await axios.get('http://localhost:8080/restaurantTable/show/available');
+
             res.render("waitinglist", { list: response.data ,tables: tables.data, msg:req.query.msg});
+
         } catch (error) {
             console.error(error);
         }
@@ -49,6 +51,7 @@ router.get("/delete", (req, res) => {
         try {
             await axios.delete(`http://localhost:8080/waiting/delete/${req.query.id}`)
             res.redirect(`/waitingList?msg=${response.data}`);
+
         } catch (error) {
             console.error(error);
         }
@@ -60,7 +63,9 @@ router.post("/add", (req, res) => {
 
     async function getuser() {
         try {
+
             const response = await axios.post(`http://localhost:8080/waiting/add`,{
+
                 "waitingNumber": req.body.waitingNumber,
                 "numberOfPerson": req.body.numberOfPerson,
                 "customerBean": {
@@ -70,6 +75,7 @@ router.post("/add", (req, res) => {
                 }
             })
             res.redirect(`/waitingList?msg=${response.data}`);
+
         } catch (error) {
             console.error(error);
         }

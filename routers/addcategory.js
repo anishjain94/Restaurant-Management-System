@@ -15,8 +15,7 @@ router.post("/", (req, res) => {
             categoryName: req.body.categoryname
         })
             .then(function (response) {
-                console.log(response);
-                
+                console.log(response);                
                 res.redirect(`categories?msg=${response.data}`);
             })
     }
